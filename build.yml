@@ -1,0 +1,5 @@
+steps:
+  - bash: npm run init
+    displayName: Do lerna init
+  - bash: npm run test
+    displayName: Do run test suite

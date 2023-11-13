@@ -1,0 +1,92 @@
+# Node.js React Web BaseApp to Linux on Azure
+# Build a Node.js React app and deploy it to Azure as a Linux web app.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  - refs/heads/*
+
+stages:
+  - stage: CI_CD
+    displayName: CI_CD
+    variables:
+      isMaster: ${{ eq(variables['Build.SourceBranchName'], 'master') }}
+      nwmTdmsArchive: 'deploy/nwm-tdms.zip'
+      nwmLsnArchive: 'deploy/nwm-lsn.zip'
+    jobs:
+      - job: BuildTest
+        displayName: BuildTest
+        steps:
+          - template: set-bump.yml
+          - bash: git config user.email "ekimber@nwm.doe.gov"
+            displayName: Do set user email
+          - bash: git config user.name "CICD on behalf of ekimber"
+            displayName: Do set user name
+          - bash: echo $(Build.SourceBranch)
+            displayName: Log source branch
+          - bash: echo $(isMaster)
+            displayName: Log isMaster
+          - bash: |
+              npm config set "//pkgs.dev.azure.com/NWMProject/_packaging/NWMProject/npm/registry/:username" "NWMProject" 
+              npm config set "//pkgs.dev.azure.com/NWMProject/_packaging/NWMProject/npm/registry/:email" "ekimber@nwm.doe.gov" 
+              npm config set "//pkgs.dev.azure.com/NWMProject/_packaging/NWMProject/npm/:username" "NWMProject"
+              npm config set "//pkgs.dev.azure.com/NWMProject/_packaging/NWMProject/npm/:email" "ekimber@nwm.doe.gov"
+              TOKEN=$(node -e "console.log(Buffer.from(\"$(System.AccessToken)\").toString('base64'));");
+              npm config set "//pkgs.dev.azure.com/NWMProject/_packaging/NWMProject/npm/registry/:password" "$TOKEN"
+              npm config set "//pkgs.dev.azure.com/NWMProject/_packaging/NWMProject/npm/:password" "$TOKEN"
+            displayName: Do setup npm config
+          - template: build.yml
+          - bash: git reset --hard
+            displayName: Reset all changes from build
+      - job: ArchiveDeploy
+        displayName: ArchiveDeploy
+        dependsOn: BuildTest
+        condition: ${{ variables.isMaster }}
+        pool: Default
+        steps:
+          - bash: echo $(isMaster)
+            displayName: Log isMaster
+          - bash: rm -rf deploy
+            displayName: Clean deploy
+          - bash: mkdir deploy
+            displayName: Do make deploy directory
+          - template: build.yml
+          - task: CopyFiles@2
+            displayName: Copy web.config to dist for TDMS
+            inputs:
+              sourceFolder: 'apps/tdms-react/deploy/iis'
+              contents: web.config
+              targetFolder: 'apps/tdms-react/dist'
+              overWrite: true
+          - template: archive.yml
+            parameters:
+              app: tdms-react
+              defaultDirectory: '$(System.DefaultWorkingDirectory)'
+              rootFolderOrFile: 'dist'
+              archiveFile: ${{ variables.nwmTdmsArchive }}
+          - task: AzureRMWebAppDeployment@4
+            displayName: Deploy tdms-react application
+            inputs:
+              azureSubscription: 'nwm-app-services'
+              Package: ${{ variables.nwmTdmsArchive }}
+              DeployToSlotOrASEFlag: true
+              SlotName: development
+              WebAppName: nwm-tdms
+              ResourceGroupName: nwm-app-services-rg
+          - template: archive.yml
+            parameters:
+              app: lsn
+              defaultDirectory: '$(System.DefaultWorkingDirectory)'
+              rootFolderOrFile: 'dist'
+              archiveFile: ${{ variables.nwmLsnArchive }}
+          - task: AzureRMWebAppDeployment@4
+            displayName: Deploy lsn application
+            inputs:
+              azureSubscription: 'nwm-app-services'
+              Package: ${{ variables.nwmLsnArchive }}
+              DeployToSlotOrASEFlag: true
+              SlotName: development
+              WebAppName: nwm-lsn
+              ResourceGroupName: nwm-app-services-rg
+          - bash: rm -rf deploy
+            displayName: Do remove deploy directory

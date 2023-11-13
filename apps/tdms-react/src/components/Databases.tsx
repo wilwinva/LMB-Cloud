@@ -1,0 +1,180 @@
+import React, { ReactElement, useMemo } from 'react';
+import { Text, Stack, IStackStyles, ILinkStyles, ITextStyles } from 'office-ui-fabric-react';
+import { Link } from 'react-router-dom';
+import useLinks from '../hooks/links/useLinks';
+
+const linkStyles: ILinkStyles = {
+  root: {
+    width: 600,
+    marginLeft: 100,
+    selectors: {
+      a: {
+        color: 'red',
+        fontWeight: 'bold',
+        paddingTop: 20,
+        fontSize: 18,
+      },
+    },
+  },
+};
+const pageStyles: IStackStyles = {
+  root: {
+    width: 700,
+    marginLeft: 50,
+    selectors: {
+      a: {
+        color: '#c30000 !important',
+        fontWeight: 'bold',
+        paddingTop: 20,
+      },
+    },
+  },
+};
+const headerText: ITextStyles = {
+  root: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+};
+const greenDBHeaderContainer: IStackStyles = {
+  root: {
+    marginTop: '30px !important',
+    backgroundColor: '#6ba694',
+    width: 200,
+  },
+};
+const dbHeaderText: ITextStyles = {
+  root: {
+    color: 'white',
+    marginLeft: 20,
+  },
+};
+const headerBaseLine: IStackStyles = {
+  root: {
+    backgroundColor: '#6ba694',
+    width: '100%',
+    height: 2,
+    marginBottom: 20,
+  },
+};
+
+interface DirectoryCardProp {
+  header: HeaderProps;
+  links: LinkCardProp;
+}
+interface HeaderProps {
+  title: string;
+  container: string;
+  blurb: ReactElement;
+}
+interface LinkCardProp {
+  to: string;
+  linkText: string;
+  blurb: ReactElement;
+  index: number;
+}
+
+function Databases(): JSX.Element {
+  const links = useLinks();
+  const { ...atdtRouteProps } = links.atdt.globalTextLinkProps({});
+  const { ...giRouteProps } = links.gis.globalTextLinkProps({});
+  const { ...mwdRouteProps } = links.mwd.globalTextLinkProps({});
+  const { ...sepRouteProps } = links.sep.globalTextLinkProps({});
+  const { ...spaRouteProps } = links.spa.globalTextLinkProps({});
+  const { ...tdpRouteProps } = links.tdp.globalTextLinkProps({});
+
+  const DataProps = {
+    header: {
+      title: 'Database Terms and Definitions',
+      container: 'Databases',
+      blurb: [
+        <strong>Yucca Mountain Project</strong>,
+        ' and databases developed to provide site and regional geo-science characteristics data const to facilitate the establishment of a site geo-characteristics reference, as well as, input data to facilitate repository system design analyses, performance assessment evaluations and the Environmental Impact Assessment.',
+      ],
+    },
+    links: [
+      {
+        to: atdtRouteProps.to,
+        linkText: 'Automated Technical Data Tracking (ATDT):',
+        blurb: [
+          'Master Indexing system that provides traceability from the highest level fata developments and interpretations back to the original source data using ',
+          <strong>Data Tracking Numbers</strong>,
+          '.',
+        ],
+      },
+      {
+        to: giRouteProps.to,
+        linkText: 'Geographic Information (GI):',
+        blurb: [
+          'A database component of GENISES, which contains spatial data, providing ',
+          <strong>location information</strong>,
+          ' for test activities, facilities, roads, and geo-science features within the ',
+          <strong>Yucca Mountain Project</strong>,
+          ' study area.',
+        ],
+      },
+      {
+        to: mwdRouteProps.to,
+        linkText: 'Model warehouse data (MWD):',
+        blurb:
+          'This database is comprised o input data and output results of the various site and evaluation models including, process and intermediate level analytical models.',
+      },
+      {
+        to: sepRouteProps.to,
+        linkText: 'Site and Engineering Properties (SEP):',
+        blurb: [
+          'A database component of GENISES, which contains site investigation field and laboratory test data, as well as, engineering analysis input data, organized by ',
+          <strong>Parameter</strong>,
+          ', or ',
+          <strong>Specific Data Tracking Number</strong>,
+          '.',
+        ],
+      },
+      {
+        to: spaRouteProps.to,
+        linkText: 'System Performance Assessment (SPA):',
+        blurb: [
+          'This database is used to compile performance assessment modeling input files. The files containing graphical and tabular data are used to facilitate the analytical evaluations of the site and repository system design. Input files from this database are imported directly into model analyses to produce model output files that are submitted to the Modeling Warehouse Database.',
+        ],
+      },
+      {
+        to: tdpRouteProps.to,
+        linkText: 'Technical Data Parameter Dictionary TDP:',
+        blurb: [
+          'The Technical Data Parameter Dictionary is a dictionary of standardized technical terms which is used to identify all YMP technical data. These standardized items, i.e., parameters and attributes, provide the common language needed for storing and retreiving the project technical data generated by or required for site characterized activities, socioeconomics and environment assessments, design and development activities and perfomrance assessment.',
+        ],
+      },
+    ],
+  };
+
+  const linkComponents = useMemo(() => {
+    return DataProps.links.map((item, idx) => (
+      <Stack key={idx}>
+        <Link to={item.to}>{item.linkText}</Link>
+        <Stack>
+          <Stack.Item>{item.blurb}</Stack.Item>
+        </Stack>
+      </Stack>
+    ));
+  }, []);
+
+  return (
+    <Stack styles={pageStyles}>
+      <Text variant="xxLarge" styles={headerText}>
+        {DataProps.header.title}
+      </Text>
+      <Stack styles={greenDBHeaderContainer}>
+        <Text variant={'xLarge'} styles={dbHeaderText}>
+          {DataProps.header.container}
+        </Text>
+      </Stack>
+      <Stack styles={headerBaseLine} />
+      <Stack>
+        <Stack.Item>{DataProps.header.blurb}</Stack.Item>
+      </Stack>
+      <Stack styles={linkStyles}>{linkComponents}</Stack>
+    </Stack>
+  );
+}
+
+export default Databases;

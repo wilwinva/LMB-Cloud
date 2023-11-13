@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig-base",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDirs": ["./src", "./e2e", "./__generated__"]
+  },
+  "include": ["src", "e2e", "__generated__"],
+  "references": [
+    { "path": "../../packages/uifabric" },
+    { "path": "../../packages/react-hooks" },
+    { "path": "../../packages/util" },
+    { "path": "../../packages/types" }
+  ]
+}

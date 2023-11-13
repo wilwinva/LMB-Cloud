@@ -1,0 +1,27 @@
+{
+  "version": "0.6.48",
+  "npmClient": "npm",
+  "command": {
+    "bootstrap": {
+      "hoist": true,
+      "npmClientArgs": ["--no-package-lock"]
+    },
+    "publish": {
+      "ignoreChanges": ["ignored-file", "*.md"],
+      "message": "chore(release) publish",
+      "registry": "https://pkgs.dev.azure.com/NWMProject/_packaging/NWMProject/npm/registry/"
+    },
+    "changed": {
+      "ignoreChanges": ["ignored-file", "*.md"]
+    },
+    "updated": {
+      "ignoreChanges": ["ignored-file", "*.md"],
+      "registry": "https://pkgs.dev.azure.com/NWMProject/_packaging/NWMProject/npm/registry/"
+    },
+    "version": {
+      "ignoreChanges": ["ignored-file", "*.md"],
+      "registry": "https://pkgs.dev.azure.com/NWMProject/_packaging/NWMProject/npm/registry/"
+    }
+  },
+  "packages": ["apps/**", "packages/**"]
+}

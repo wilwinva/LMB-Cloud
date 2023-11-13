@@ -1,0 +1,10 @@
+node_modules
+lib
+lib-commonjs
+dist
+.idea/**
+src/.DS_Store
+src/atdt/.DS_Store
+**/__generated__
+*.DS_Store
+coverage/**

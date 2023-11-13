@@ -1,0 +1,7 @@
+{
+  "name": "@nwm/types",
+  "version": "0.6.48",
+  "description": "external type definitions",
+  "private": true,
+  "dependencies": {}
+}

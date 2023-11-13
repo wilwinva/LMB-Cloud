@@ -1,0 +1,12 @@
+{
+  "files": [],
+  "references": [
+    { "path": "apps/tdms-react" },
+    { "path": "apps/lsn" },
+    { "path": "packages/react-hooks" },
+    { "path": "packages/types" },
+    { "path": "packages/uifabric" },
+    { "path": "packages/util" },
+    { "path": "packages/azure-authentication" }
+  ]
+}

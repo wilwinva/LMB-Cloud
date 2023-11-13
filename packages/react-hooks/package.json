@@ -1,0 +1,46 @@
+{
+  "name": "@nwm/react-hooks",
+  "version": "0.6.48",
+  "license": "",
+  "types": "lib/index.d.ts",
+  "module": "lib/index.js",
+  "module-ts": "src/index.ts",
+  "engines": {
+    "node": ">=v10.18.1",
+    "npm": ">=6.13.4"
+  },
+  "scripts": {
+    "precommit": "pretty-quick --staged & npm test",
+    "prebuild": "npm run clean",
+    "build": "tsc -b",
+    "coverage": "jest -c scripts/jest/jest.config.js --coverage",
+    "clean": "rm -rf ./lib ./dist tsconfig.tsbuildinfo",
+    "init": "npm run --prefix ../.. init",
+    "lint": "eslint src/**/* --ext .js,.jsx,.ts,.tsx, -c .eslintrc.js --fix",
+    "prettier": "prettier -l --config ../../.prettierrc --ignore-path ../../.prettierignore --write *.*",
+    "test": "jest -c scripts/jest/jest.config.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  },
+  "dependencies": {
+    "@apollo/client": "^3.3.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/polyfill": "^7.7.0",
+    "@nwm/types": "file:../types",
+    "@nwm/util": "file:../util",
+    "graphql": "^14.5.8",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "npm": "^6.14.4",
+    "office-ui-fabric-react": "^7.0.0",
+    "react": "0.0.0-experimental-b53ea6ca0",
+    "react-dom": "0.0.0-experimental-b53ea6ca0",
+    "react-error-boundary": "^1.2.5",
+    "react-router": "6.0.0-alpha.2",
+    "react-router-dom": "6.0.0-alpha.2",
+    "typescript": "3.8.3"
+  }
+}

@@ -1,0 +1,5 @@
+steps:
+  - bash: |
+      VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('./lerna.json', { encoding: 'utf-8', flag: 'r' })).version);");
+      BUMP="$VERSION.$(Build.BuildId)";
+      echo "##vso[task.setvariable variable=bump]$BUMP"

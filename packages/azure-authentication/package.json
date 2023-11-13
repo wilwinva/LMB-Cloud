@@ -1,0 +1,34 @@
+{
+  "name": "@nwm/azure-authentication",
+  "version": "0.6.48",
+  "license": "",
+  "types": "lib/index.d.ts",
+  "module": "lib/index.js",
+  "module-ts": "src/index.ts",
+  "engines": {
+    "node": ">=v10.18.1",
+    "npm": ">=6.13.4"
+  },
+  "scripts": {
+    "precommit": "pretty-quick --staged & npm test",
+    "prebuild": "npm run clean",
+    "build": "tsc",
+    "coverage": "jest -c scripts/jest/jest.config.js --coverage",
+    "clean": "rm -rf ./lib ./dist tsconfig.tsbuildinfo",
+    "init": "npm run --prefix ../.. init",
+    "lint": "eslint src/**/* --ext .js,.jsx,.ts,.tsx, -c .eslintrc.js --fix",
+    "prettier": "prettier -l --config ../../.prettierrc --ignore-path ../../.prettierignore --write *.*",
+    "test": "jest -c scripts/jest/jest.config.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run precommit"
+    }
+  },
+  "dependencies": {
+    "@nwm/util": "file:../util",
+    "axios": "0.20.0",
+    "msal": "1.4.0",
+    "typescript": "3.8.3"
+  }
+}

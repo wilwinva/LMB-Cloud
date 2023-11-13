@@ -1,0 +1,13 @@
+{
+  "name": "NWM GraphQL Schemas",
+  "projects": {
+    "lsn": {
+      "includes": ["apps/lsn/**"]
+    },
+    "tdms": {
+      "includes": ["apps/tdms/**"]
+    }
+  },
+  "extensions": {
+  }
+}

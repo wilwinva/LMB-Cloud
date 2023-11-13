@@ -1,0 +1,30 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "apis_blob_storage_access_path": {
+      "value": null
+    },
+    "identityProviders_Aad_clientSecret": {
+      "value": null
+    },
+    "subscriptions_5fb20ab35f73ab0040070001_displayName": {
+      "value": null
+    },
+    "subscriptions_5fb20ab45f73ab0040070002_displayName": {
+      "value": null
+    },
+    "users_1_lastName": {
+      "value": null
+    },
+    "service_nwm_dev_name": {
+      "value": null
+    },
+    "virtualNetworks_NWM_primary_vnet_externalid": {
+      "value": null
+    },
+    "components_nwm_tdms_insights_externalid": {
+      "value": null
+    }
+  }
+}

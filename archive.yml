@@ -1,0 +1,19 @@
+parameters:
+  - name: app
+    type: string
+  - name: defaultDirectory
+    type: string
+  - name: rootFolderOrFile
+    type: string
+  - name: archiveFile
+    type: string
+
+steps:
+  - task: ArchiveFiles@2
+    displayName: 'Archive files'
+    inputs:
+      rootFolderOrFile: ${{ format('{0}/{1}/{2}/{3}', parameters.defaultDirectory, 'apps', parameters.app, parameters.rootFolderOrFile) }}
+      includeRootFolder: false
+      archiveType: zip
+      archiveFile: ${{ parameters.archiveFile }}
+      replaceExistingArchive: true

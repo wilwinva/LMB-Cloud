@@ -1,0 +1,14 @@
+{
+  "name": "non-nwm",
+  "version": "0.5.0",
+  "description": "I am not a part of NWM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "",
+  "dependencies": {
+    "@nwm/types": "file:../../types"
+  }
+}

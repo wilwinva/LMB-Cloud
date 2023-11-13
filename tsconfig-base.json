@@ -1,0 +1,20 @@
+{
+  "exclude": ["node_modules", "lib", "dist"],
+  "compilerOptions": {
+    "jsx": "react",
+    "lib": ["dom", "esnext", "es2015.iterable", "dom.iterable", "es2020.string"],
+    "module": "esnext",
+    "target": "es2015",
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "experimentalDecorators": true,
+    "incremental": true,
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "typeRoots": ["packages/types", "node_modules/@types", "node_modules/just-stack-react/node_modules/@types"],
+    "preserveSymlinks": true
+  }
+}

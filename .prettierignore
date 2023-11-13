@@ -1,0 +1,8 @@
+**/node_modules/**
+**/lib/**
+**/dist/**
+**/*.npmrc
+**/*.gitignore
+**/*.prettierignore
+**/*.log
+**/tsconfig.tsbuildinfo

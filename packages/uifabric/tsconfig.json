@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig-base",
+  "compilerOptions": {
+    "outDir": "./lib",
+    "rootDir": "./src"
+  },
+  "include": ["src"],
+  "references": [{ "path": "../../packages/react-hooks" }, { "path": "../../packages/util" }]
+}

@@ -1,0 +1,3 @@
+[submodule "deploy/terraform/terraform-modules"]
+	path = deploy/terraform/terraform-modules
+	url = https://NWMProject@dev.azure.com/NWMProject/Configuration%20Management/_git/terraform-modules
